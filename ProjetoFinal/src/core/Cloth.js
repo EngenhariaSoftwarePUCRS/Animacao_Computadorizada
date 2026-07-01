@@ -28,7 +28,7 @@ export class Cloth {
 
   /**
    * Generate grid of particles
-   * Particles arranged in a 2D grid
+   * Particles arranged in a 2D grid hanging from the top
    */
   _generateGrid() {
     const segmentWidth = this.width / this.segments;
@@ -37,7 +37,7 @@ export class Cloth {
     for (let y = 0; y <= this.segments; y++) {
       for (let x = 0; x <= this.segments; x++) {
         const px = x * segmentWidth;
-        const py = 0; // Start at y=0
+        const py = this.height - (y * segmentHeight); // Hang from top (height) down to 0
         const pz = y * segmentHeight;
 
         const particle = new Particle(px, py, pz);

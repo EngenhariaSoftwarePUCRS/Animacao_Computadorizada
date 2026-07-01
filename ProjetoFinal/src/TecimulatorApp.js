@@ -12,16 +12,26 @@ export class TecimulatorApp {
       throw new Error(`Canvas with id "${canvasId}" not found`);
     }
 
-    // Initialize core systems
-    this.simulation = new SimulationCore({
-      clothWidth: 10,
-      clothHeight: 10,
-      segments: 15,
-      deltaTime: 0.016, // 60 FPS
-      constraintIterations: 3,
-    });
+    console.log('Initializing TecimulatorApp...');
+    console.log('Canvas element:', this.canvas);
+    console.log('Canvas size:', this.canvas.width, 'x', this.canvas.height);
 
-    this.renderer = new WebGLRenderer(this.canvas);
+    // Initialize core systems
+    try {
+      this.simulation = new SimulationCore({
+        clothWidth: 10,
+        clothHeight: 10,
+        segments: 15,
+        deltaTime: 0.016, // 60 FPS
+        constraintIterations: 3,
+      });
+
+      this.renderer = new WebGLRenderer(this.canvas);
+      console.log('Simulation and renderer initialized successfully');
+    } catch (error) {
+      console.error('Failed to initialize simulation or renderer:', error);
+      throw error;
+    }
 
     // State
     this.animationId = null;
@@ -183,10 +193,20 @@ export class TecimulatorApp {
 // Initialize app on load
 window.addEventListener('DOMContentLoaded', () => {
   try {
+    console.log('DOM Content Loaded - Initializing Tecimulator');
     window.app = new TecimulatorApp('canvas');
     window.app.setupUI();
+    
+    // Initial render
+    console.log('Rendering initial frame...');
     window.app.renderer.render(window.app.simulation.cloth);
+    console.log('Tecimulator ready! Click Play to start simulation.');
   } catch (error) {
     console.error('Failed to initialize Tecimulator:', error);
+    console.error('Stack trace:', error.stack);
+    const canvas = document.getElementById('canvas');
+    if (canvas) {
+      canvas.parentElement.innerHTML = '<div style="color: red; padding: 20px;">Error: ' + error.message + '</div>';
+    }
   }
 });
