@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tecimulator - Interactive Cloth Simulation</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Canvas -->
+    <div class="canvas-container">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <!-- Control Panel -->
+    <div class="control-panel">
+      <!-- Header -->
+      <div class="panel-header">
+        <h1>Tecimulator</h1>
+        <p>Interactive Web-Based Cloth Simulation</p>
+      </div>
+
+      <!-- Simulation Controls -->
+      <div class="control-section">
+        <h3>Simulation</h3>
+        <div class="button-group">
+          <button id="play-btn" class="btn btn-primary">Play</button>
+          <button id="pause-btn" class="btn btn-secondary">Pause</button>
+          <button id="step-btn" class="btn btn-secondary">Step</button>
+          <button id="reset-btn" class="btn btn-danger">Reset</button>
+        </div>
+      </div>
+
+      <!-- Material Presets -->
+      <div class="control-section">
+        <h3>Material Presets</h3>
+        <div class="preset-buttons">
+          <button class="btn btn-preset" data-preset="silk">Silk</button>
+          <button class="btn btn-preset" data-preset="cotton">Cotton</button>
+          <button class="btn btn-preset" data-preset="denim">Denim</button>
+          <button class="btn btn-preset" data-preset="leather">Leather</button>
+          <button class="btn btn-preset" data-preset="elastic">Elastic</button>
+        </div>
+      </div>
+
+      <!-- Parameters -->
+      <div class="control-section">
+        <h3>Parameters</h3>
+        <div class="parameter">
+          <label>Stretch Stiffness</label>
+          <input type="range" min="0" max="1" step="0.01" value="0.92" data-param="stretchStiffness">
+          <span class="value">0.92</span>
+        </div>
+        <div class="parameter">
+          <label>Shear Stiffness</label>
+          <input type="range" min="0" max="1" step="0.01" value="0.80" data-param="shearStiffness">
+          <span class="value">0.80</span>
+        </div>
+        <div class="parameter">
+          <label>Bend Stiffness</label>
+          <input type="range" min="0" max="1" step="0.01" value="0.50" data-param="bendStiffness">
+          <span class="value">0.50</span>
+        </div>
+        <div class="parameter">
+          <label>Damping</label>
+          <input type="range" min="0" max="1" step="0.01" value="0.97" data-param="damping">
+          <span class="value">0.97</span>
+        </div>
+      </div>
+
+      <!-- State Display -->
+      <div class="control-section">
+        <h3>State</h3>
+        <div id="state-display" class="state-display">
+          <div>Frame: 0</div>
+          <div>Time: 0.00s</div>
+          <div>Particles: --</div>
+          <div>Constraints: --</div>
+        </div>
+      </div>
+
+      <!-- Help -->
+      <div class="control-section info">
+        <h4>About</h4>
+        <p>
+          Tecimulator is an interactive cloth simulation system designed for 
+          educational visualization of physically-based cloth behavior.
+        </p>
+        <p>
+          Click on particles to select them and inspect forces in focus mode.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="src/TecimulatorApp.js"></script>
+</body>
+</html>
