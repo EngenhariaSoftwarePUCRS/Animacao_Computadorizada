@@ -59,15 +59,14 @@ export class Cloth {
 
     for (let y = 0; y < this.segments; y++) {
       for (let x = 0; x < this.segments; x++) {
-        // Get four corners of current quad
         const a = y * cols + x;
         const b = y * cols + (x + 1);
         const c = (y + 1) * cols + x;
         const d = (y + 1) * cols + (x + 1);
 
-        // Two triangles per quad
-        this.triangles.push([a, b, c]);
-        this.triangles.push([b, d, c]);
+        // Swapped winding order to face the camera
+        this.triangles.push([a, c, b]);
+        this.triangles.push([b, c, d]);
       }
     }
   }
