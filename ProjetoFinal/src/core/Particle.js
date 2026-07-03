@@ -13,21 +13,38 @@ export class Particle {
     this.mass = mass;
     this.pinned = false;
     this.id = Particle.nextId++;
+
+    // How strongly this particle responds to wind force. Driven by
+    // material presets (SimulationCore) — e.g. silk flutters more than leather.
+    this.windResponse = 1.0;
   }
 
   static nextId = 0;
 
   /**
+   * Zero out accumulated acceleration. Must be called once per frame
+   * (by Cloth.update) BEFORE gravity/wind/other forces are added, and
+   * BEFORE integrate() is called.
+   */
+  clearAcceleration() {
+    this.acceleration.set(0, 0, 0);
+  }
+
+  /**
    * Apply Verlet integration: x(t+dt) = 2*x(t) - x(t-dt) + a*dt^2
+   *
+   * NOTE: this no longer takes `gravity` as a parameter. Whatever forces
+   * apply to this particle this frame (gravity, wind, ...) must already be
+   * summed into `this.acceleration` via addForce()/direct accumulation
+   * before integrate() runs. Previously this method did
+   * `this.acceleration.copy(gravity)`, which silently threw away any
+   * addForce() calls (e.g. wind) that happened earlier in the frame.
+   *
    * @param {number} deltaTime - Time step
-   * @param {Vector3} gravity - Gravity acceleration (usually [0, -9.8, 0])
    * @param {number} damping - Damping factor (0-1), reduces velocity
    */
-  integrate(deltaTime, gravity, damping = 0.99) {
+  integrate(deltaTime, damping = 0.99) {
     if (this.pinned) return;
-
-    // Add gravity and other forces to acceleration
-    this.acceleration.copy(gravity);
 
     // Verlet step: new velocity is computed implicitly
     // v(t+dt) = (x(t+dt) - x(t-dt)) / (2*dt)
@@ -71,7 +88,9 @@ export class Particle {
   }
 
   /**
-   * Add force to this particle
+   * Add a force to this particle for the current frame.
+   * Converts force -> acceleration via F = m*a, so heavier particles
+   * (denim, leather) respond less than light ones (silk) to the same force.
    * @param {Vector3} force
    */
   addForce(force) {

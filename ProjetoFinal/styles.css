@@ -107,6 +107,12 @@ canvas {
   gap: 8px;
 }
 
+.button-group-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+
 .btn {
   padding: 10px 12px;
   border: none;
@@ -166,6 +172,27 @@ canvas {
 .btn-preset:active {
   background: #4a9eff;
   color: white;
+}
+
+/* Persistent "selected" state (as opposed to :active's momentary click
+   feedback) — used for the current preset, current render mode, and
+   Focus Mode's on/off toggle. */
+.btn.active {
+  box-shadow: inset 0 0 0 2px #4a9eff;
+}
+
+.btn-preset.active {
+  background: #4a9eff;
+  color: white;
+}
+
+.btn-primary.active {
+  background: #2fbf71;
+}
+
+.btn-primary.active:hover {
+  background: #29a862;
+  box-shadow: 0 4px 12px rgba(47, 191, 113, 0.3);
 }
 
 /* Parameters */
@@ -236,6 +263,41 @@ canvas {
 .state-display div {
   white-space: nowrap;
 }
+
+/* Hint text under View / Focus Mode controls */
+.hint {
+  font-size: 11px;
+  line-height: 1.5;
+  color: #7a8aaf;
+  margin: 4px 0 10px;
+}
+
+/* Focus Mode force-vector color legend */
+.force-legend {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  font-size: 11px;
+  color: #a0b0d0;
+}
+
+.force-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.force-legend .swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.swatch-stretch { background: rgb(242, 89, 64); }
+.swatch-shear   { background: rgb(242, 217, 51); }
+.swatch-bend    { background: rgb(77, 191, 242); }
 
 /* Documentation Link */
 .doc-link {

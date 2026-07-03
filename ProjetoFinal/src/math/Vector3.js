@@ -55,6 +55,18 @@ export class Vector3 {
     return Vector3.length(Vector3.sub(a, b));
   }
 
+  /**
+   * Linear interpolation between two vectors. t=0 -> a, t=1 -> b.
+   * Used by the renderer to smoothly ease the camera during Focus Mode.
+   */
+  static lerp(a, b, t) {
+    return new Vector3(
+      a.x + (b.x - a.x) * t,
+      a.y + (b.y - a.y) * t,
+      a.z + (b.z - a.z) * t
+    );
+  }
+
   // Instance methods for convenience
   add(other) {
     this.x += other.x;

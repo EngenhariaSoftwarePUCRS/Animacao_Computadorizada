@@ -44,6 +44,33 @@
         </div>
       </div>
 
+      <!-- Render Mode -->
+      <div class="control-section">
+        <h3>View</h3>
+        <div class="button-group-3">
+          <button class="btn btn-preset active" data-render-mode="cloth">Solid</button>
+          <button class="btn btn-preset" data-render-mode="wireframe">Wireframe</button>
+          <button class="btn btn-preset" data-render-mode="particles">Particles</button>
+        </div>
+        <p class="hint">Right-drag to orbit &middot; middle-drag to pan &middot; scroll to zoom</p>
+      </div>
+
+      <!-- Focus Mode -->
+      <div class="control-section">
+        <h3>Focus Mode</h3>
+        <p class="hint">Click 3-7 particles to select them, then enable Focus Mode to zoom in and see color-coded stretch/shear/bend forces.</p>
+        <div class="button-group">
+          <button id="focus-mode-toggle" class="btn btn-primary">Focus Mode: Off</button>
+          <button id="clear-selection-btn" class="btn btn-secondary">Clear Selection</button>
+        </div>
+        <div id="focus-mode-info" class="state-display">Click particles to select (3-7 needed for Focus Mode)</div>
+        <div class="force-legend">
+          <span><i class="swatch swatch-stretch"></i> Stretch</span>
+          <span><i class="swatch swatch-shear"></i> Shear</span>
+          <span><i class="swatch swatch-bend"></i> Bend</span>
+        </div>
+      </div>
+
       <!-- Parameters -->
       <div class="control-section">
         <h3>Parameters</h3>
